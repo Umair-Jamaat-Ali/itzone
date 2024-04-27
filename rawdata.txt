@@ -1,0 +1,233 @@
+"use client";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+
+const NavDropdown = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+  const leaveDropDown = () => {
+    setIsOpen(null);
+  };
+
+  const handleItemClick = (item) => {
+    console.log(Clicked on ${item});
+    setIsOpen(false);
+  };
+
+  return (
+    <div
+      onMouseLeave={leaveDropDown}
+      className="relative inline-block gap-2 text-left"
+    >
+      {/* <div> */}
+      <button
+        onMouseOver={toggleDropdown}
+        className="inline-flex w-full h-20 items-center justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900"
+      >
+        {props.title}
+        <FontAwesomeIcon icon={faCaretDown} />
+      </button>
+      {/* </div> */}
+      {isOpen && (
+        <div
+          // onMouseLeave={leaveDropDown}
+          className="absolute z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <div className="py-1">
+            <button
+              onClick={() => handleItemClick("Account settings")}
+              className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            >
+              {props.firstChild}
+            </button>
+            <button
+              onClick={() => handleItemClick("Support")}
+              className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            >
+              Support
+            </button>
+            <button
+              onClick={() => handleItemClick("License")}
+              className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            >
+              License
+            </button>
+            <button
+              onClick={() => handleItemClick("Sign out")}
+              className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default NavDropdown;
+
+
+-------------------------------------------------------
+
+
+
+
+import Link from "next/link";
+import React from "react";
+import NavButton from "../navbutton/NavButton";
+import NavDropdown from "../navDropdown/NavDropdown";
+
+export default function Navbar() {
+  return (
+    <div className="shadow-md lg:px-24 flex flex-wrap items-center justify-between h-20">
+      <div>
+        <h2>My Logo</h2>
+      </div>
+      <div className="flex">
+        <ul className="flex flex-wrap items-center gap-8">
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="What we do" firstChild="Strategy Consulting" />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="Technologies" firstChild="Solutions Engineering" />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="How we engage" firstChild=" " />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="How we are" />
+            </Link>
+          </li>
+          <li>
+            <NavButton />
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+
+----------------------------------------------------------------------------------------------
+
+
+import Link from "next/link";
+import React, { useState } from "react";
+import NavButton from "../navbutton/NavButton";
+import NavDropdown from "../navDropdown/NavDropdown";
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  return (
+    <div className="shadow-md lg:px-24 flex flex-wrap items-center justify-between h-auto">
+      <div>
+        <h2>My Logo</h2>
+      </div>
+      <div className="flex lg:hidden">
+        <button onClick={handleMenuToggle}>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {menuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+      <div className={lg:flex ${menuOpen ? "block" : "hidden"}}>
+        <ul className="flex flex-wrap items-center gap-8">
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="What we do" firstChild="Strategy Consulting" />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="Technologies" firstChild="Solutions Engineering" />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="How we engage" firstChild=" " />
+            </Link>
+          </li>
+          <li>
+            <Link href={"#"}>
+              <NavDropdown title="How we are" />
+            </Link>
+          </li>
+          <li>
+            <NavButton />
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+----------------------------------------------------------------------
+
+
+
+import React from 'react';
+import NavDropdown from '../navdropDown/NavDropDown';
+import Link from 'next/link';
+import NavButton from '../navButton/NavButton';
+import { useMediaQuery } from 'react-responsive';
+
+export default function NavBar() {
+    const isLg = useMediaQuery({ minWidth: 1024 }); // Define breakpoint for lg (large)
+
+    return (
+        <>
+            <div className='header bg-white sm:h-[72px] sm:bg-white md:h-[80px] md:bg-white lg:h-[88px] lg:bg-white shadow-md'>
+                <div className='container mx-4 px-3 flex justify-center items-center '>
+                    <div className='ml-2 text-sm font-semibold  lg:mr-20 lg:text-lg lg:font-bold'>
+                        <h2>
+                            IT zone.uk
+                        </h2>
+                    </div>
+                    {/* Conditionally apply CSS properties for lg breakpoint */}
+                    {isLg && (
+                        <div className="flex sm:hidden md:hidden">
+                            {/* Your content for lg screens */}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </>
+    );
+}
