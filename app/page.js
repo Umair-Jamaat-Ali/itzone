@@ -4,7 +4,8 @@ import Header from "./components/header/Header";
 import About from "./components/about/About";
 import Goals from "./components/goals/Goals";
 import OurProcess from "./components/ourProcess/OurProcess";
-import Forms from "./components/forms/Forms";
+import DiscussAboutProject from "./components/discussAboutProject/DiscussAboutProject";
+
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
     <About/>
     <Goals/>
     <OurProcess/>
-    <Forms/>
+    <DiscussAboutProject/>
     Allah 
    </div>
    </>
