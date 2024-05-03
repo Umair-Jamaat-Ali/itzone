@@ -1,4 +1,58 @@
+'use client'
+
+import { useState } from "react";
+
 export default function FormSec() {
+
+
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [company, setCompany] = useState("")
+  const [email, setEmail] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [message, setMessage] = useState("")
+
+
+  const saveHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        company,
+        phoneNumber,
+        message
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+     const response = await fetch("http://localhost:3000/api/sendMail", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+
+        console.log('response', response)
+        if (!response.ok) {
+          alert("some went wrong in response")
+          return
+        }
+
+        alert("data saved")
+    } catch (error) {
+
+    }
+  }
+
   return (
     <div class="bg-gray-100 px-10 lg:px-16 rounded-md">
       <div
@@ -7,7 +61,7 @@ export default function FormSec() {
       >
         <div
           class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-          ></div>
+        ></div>
       </div>
       <form action="#" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -22,8 +76,8 @@ export default function FormSec() {
               <input
                 type="text"
                 name="first-name"
-                id="first-name"
-                autocomplete="given-name"
+                value={firstName}
+                onChange={(e) => { setFirstName(e.target.value) }}
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -39,8 +93,8 @@ export default function FormSec() {
               <input
                 type="text"
                 name="last-name"
-                id="last-name"
-                autocomplete="family-name"
+                value={lastName}
+                onChange={(e) => { setLastName(e.target.value) }}
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -56,8 +110,8 @@ export default function FormSec() {
               <input
                 type="text"
                 name="company"
-                id="company"
-                autocomplete="organization"
+                value={company}
+                onChange={(e) => { setCompany(e.target.value) }}
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -73,8 +127,8 @@ export default function FormSec() {
               <input
                 type="email"
                 name="email"
-                id="email"
-                autocomplete="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value) }}
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -116,8 +170,8 @@ export default function FormSec() {
               <input
                 type="tel"
                 name="phone-number"
-                id="phone-number"
-                autocomplete="tel"
+                value={phoneNumber}
+                onChange={(e) => { setPhoneNumber(e.target.value) }}
                 class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -132,7 +186,8 @@ export default function FormSec() {
             <div class="mt-2.5">
               <textarea
                 name="message"
-                id="message"
+                value={message}
+                onChange={(e) => { setMessage(e.target.value) }}
                 rows="4"
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               ></textarea>
@@ -146,6 +201,7 @@ export default function FormSec() {
                 role="switch"
                 aria-checked="false"
                 aria-labelledby="switch-1-label"
+                
               >
                 <span class="sr-only">Agree to policies</span>
                 <span
@@ -166,6 +222,7 @@ export default function FormSec() {
         <div class="mt-10">
           <button
             type="submit"
+            onClick={saveHandler}
             class="block w-full rounded-md my-5 py-3 bg-red-600 lg:px-3.5 lg:py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Submit
@@ -175,3 +232,7 @@ export default function FormSec() {
     </div>
   );
 }
+
+
+
+
