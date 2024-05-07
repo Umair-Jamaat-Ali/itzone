@@ -5,6 +5,8 @@ import About from "./components/about/About";
 import Goals from "./components/goals/Goals";
 import OurProcess from "./components/ourProcess/OurProcess";
 import DiscussAboutProject from "./components/discussAboutProject/DiscussAboutProject";
+import LeaderShip from "./components/leaderShip/LeaderShip";
+import ServiceCard from "./components/serviceCard/ServiceCard";
 
 
 export default function Home() {
@@ -17,6 +19,8 @@ export default function Home() {
     <Goals/>
     <OurProcess/>
     <DiscussAboutProject/>
+    <LeaderShip/>
+    <ServiceCard/>
     Allah 
    </div>
    </>
