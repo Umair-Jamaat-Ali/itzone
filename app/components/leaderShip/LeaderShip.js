@@ -55,7 +55,7 @@ const people = [
             {people.map((person) => (
               <li key={person.name}>
                 <div className=" rounded-lg my-4 items-center gap-x-6 cursor-pointer transform transition duration-500 hover:scale-105">
-                  <img className=" ml-20 h-[150px] w-[150px] md:h-[250px] md:w-[350px] rounded-lg " src={person.imageUrl} alt="" />
+                  <img className=" ml-20 sm:ml-0 h-[150px] w-[150px] md:h-[250px] md:w-[350px] rounded-lg " src={person.imageUrl} alt="" />
                   <div>
                     <h3 className=" text-2lg text-center font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
                     <p className="text-lg text-center font-semibold leading-6 text-indigo-600">{person.role}</p>
