@@ -7,6 +7,7 @@ import OurProcess from "./components/ourProcess/OurProcess";
 import DiscussAboutProject from "./components/discussAboutProject/DiscussAboutProject";
 import LeaderShip from "./components/leaderShip/LeaderShip";
 import ServiceCard from "./components/serviceCard/ServiceCard";
+import Services_Header from "./components/Services_Header";
 
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
     <DiscussAboutProject/>
     <LeaderShip/>
     <ServiceCard/>
+    <Services_Header/>
     Allah 
    </div>
    </>
